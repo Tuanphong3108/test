@@ -68,6 +68,17 @@
       z-index: 9999;
     }
 
+    #logout-button {
+      margin: 1rem;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      padding: 6px 12px;
+      cursor: pointer;
+      background: #555;
+      border: none;
+      color: white;
+    }
+
     #loading-screen {
       position: fixed;
       inset: 0;
@@ -139,12 +150,12 @@
   </style>
 </head>
 <body>
-  <div id="lock-screen" style="display: none;">
+  <div id="lock-screen">
     <div>Enter password:</div>
     <input type="password" id="password">
     <button onclick="checkPassword()">Unlock</button>
-    <div id="error-msg" style="color: red; margin-top: 10px;"><button id="logout-button" style="margin: 1rem; font-family: 'VT323', monospace; font-size: 18px; padding: 6px 12px; cursor: pointer; background: #555; border: none; color: white;">🔒 Đăng xuất</button>
-$1
+    <div id="error-msg" style="color: red; margin-top: 10px;"></div>
+  </div>
 
   <div id="loading-screen">
     <p id="loading-text">⛏️ Generating Workspace Launcher...</p>
@@ -193,6 +204,8 @@ $1
     </a>
   </div>
 
+  <button id="logout-button">🔒 Đăng xuất</button>
+
   <audio id="bgm" autoplay loop>
     <source src="music1.mp3" type="audio/mpeg">
   </audio>
@@ -203,7 +216,7 @@ $1
     const lockScreen = document.getElementById("lock-screen");
 
     if (localStorage.getItem("unlocked") === "true") {
-      lockScreen.remove();
+      lockScreen.style.display = "none";
     } else {
       lockScreen.style.display = "flex";
     }
@@ -212,11 +225,17 @@ $1
       const input = document.getElementById("password").value;
       if (input === PASS) {
         localStorage.setItem("unlocked", "true");
-        document.getElementById("lock-screen").remove();
+        lockScreen.style.display = "none";
       } else {
         document.getElementById("error-msg").textContent = "❌ Wrong password!";
       }
     }
+
+    const logoutBtn = document.getElementById("logout-button");
+    logoutBtn.onclick = () => {
+      localStorage.removeItem("unlocked");
+      location.reload();
+    };
 
     document.addEventListener("keydown", e => {
       if (
@@ -278,14 +297,6 @@ $1
         })
         .catch(() => console.warn('⚠️ Unable to fetch sw.js, skipping Service Worker registration.'));
     }
-  
-    const logoutBtn = document.getElementById("logout-button");
-    if (logoutBtn) {
-      logoutBtn.onclick = () => {
-        localStorage.removeItem("unlocked");
-        location.reload();
-      };
-    }
-$1
+  </script>
 </body>
 </html>
