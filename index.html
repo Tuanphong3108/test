@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Workspace Launcher</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+    body {
+      margin: 0;
+      background: #2e2e2e;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      background: #1e1e1e;
+      color: #fff;
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #progress-container {
+      margin-top: 1rem;
+      width: 300px;
+      background: #333;
+      border: 2px solid #555;
+      height: 20px;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0;
+      background: #ffe347;
+      transition: width 0.2s ease;
+    }
+
+    h1 {
+      color: #ffe347;
+      text-shadow: 2px 2px #333;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .app {
+      background: #3a3a3a;
+      padding: 1rem;
+      border: 3px solid #707070;
+      border-radius: 8px;
+      text-align: center;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .app:hover {
+      transform: scale(1.05);
+      background-color: #505050;
+    }
+
+    .app img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.5rem;
+    }
+
+    .app span {
+      display: block;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <p id="loading-text">⛏️ Generating Workspace Launcher...</p>
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+  </div>
+  <h1>Google Workspace Launcher</h1>
+  <div class="grid">
+    <a href="https://docs.google.com/document" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x32.png" alt="Docs">
+      <span>Docs</span>
+    </a>
+    <a href="https://docs.google.com/spreadsheets" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_spreadsheet_x32.png" alt="Sheets">
+      <span>Sheets</span>
+    </a>
+    <a href="https://docs.google.com/presentation" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_presentation_x32.png" alt="Slides">
+      <span>Slides</span>
+    </a>
+    <a href="https://mail.google.com" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" alt="Gmail">
+      <span>Gmail</span>
+    </a>
+    <a href="https://drive.google.com" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png" alt="Drive">
+      <span>Drive</span>
+    </a>
+    <a href="https://keep.google.com" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" alt="Keep">
+      <span>Keep</span>
+    </a>
+    <a href="https://tasks.google.com" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/images/branding/product/1x/tasks_48dp.png" alt="Tasks">
+      <span>Tasks</span>
+    </a>
+    <a href="https://calendar.google.com" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/images/branding/product/1x/calendar_2020q4_48dp.png" alt="Calendar">
+      <span>Calendar</span>
+    </a>
+    <a href="https://meet.google.com" class="app" target="_blank">
+      <img src="https://ssl.gstatic.com/images/branding/product/1x/meet_2020q4_48dp.png" alt="Meet">
+      <span>Meet</span>
+    </a>
+  </div>
+  <script>
+    const tips = [
+      "Don’t dig straight down!", "The creeper is always watching...", "Punching trees gives wood.", "Diamonds are a miner’s best friend.", "There is no escape from the void.", "Keep your inventory tidy!", "Monsters spawn in darkness…", "Sleep to skip the night.", "Watch your step in the Nether.", "Villagers gossip when you're not looking.","Sometimes iron golems give flowers to the villager children!","Endermen hate bath time!","Different colored dyes can be made from a variety of materials, cook cactus in a furnace to get green dye!","Creepers are the easiest obtainable source of gunpowder.",	"Obsidian can be mined with a diamond pickaxe.","Wolves and iron golems won't attack creepers.","Attacking a wolf will cause any wolves nearby to turn hostile and attack you.","Break blocks, pick up resources. Use the crafting grid to make helpful items. Now you're crafting!","You have endless lives, but your items drop to the ground when you die. Hurry back to pick them up!","It's a good idea to build a place where you can safely spend the night.","Use the right tool for the job! Chopping wood with an axe is much faster than using your hands.","Even in Minecraft you'll get hungry, so try to find something to eat before that happens.","Digging straight down or straight up might not be a great idea.","Monsters spawn in the dark. Craft a torch to brighten up any space.","Beds are great! Craft one to quickly pass the night and set your respawn point.","Survival mode has 4 different difficulty levels - Peaceful, Easy, Normal, and Hard. Or play Creative mode and get endless resources!","Be careful when you swim. Stay under water for too long and you'll run out of air.","Do people actually read these?","The world of Minecraft is endlessly surprising. You'll find lots of different animals, plants, ...and even !@#$%^&*","Tếu Tếu too bel... Minecraft's gone","You can milk a cow","You can milk a cow","There's a chance a creeper is behind you... RIGHT NOW"
+    ];
+    document.getElementById("loading-text").textContent =
+      tips[Math.floor(Math.random() * tips.length)];
+
+    let progress = 0;
+    const bar = document.getElementById("progress-bar");
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 10) + 5;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        setTimeout(() => {
+          document.getElementById("loading-screen").style.display = "none";
+        }, 300);
+      }
+      bar.style.width = progress + "%";
+    }, 200);
+
+    if ('serviceWorker' in navigator) {
+      fetch('sw.js', { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            navigator.serviceWorker.register('sw.js')
+              .then(() => console.log('✅ Service Worker registered'))
+              .catch(err => console.error('❌ Service Worker registration failed:', err));
+          } else {
+            console.warn('⚠️ sw.js not found, skipping Service Worker registration.');
+          }
+        })
+        .catch(() => console.warn('⚠️ Unable to fetch sw.js, skipping Service Worker registration.'));
+    }
+  </script>
+<audio id="bgm" autoplay loop>
+  <source src="music1.mp3" type="audio/mpeg">
+</audio>
+<button id="toggle-music">🔊</button>
+
+<script>
+  const bgm = document.getElementById("bgm");
+  const toggleBtn = document.getElementById("toggle-music");
+  toggleBtn.onclick = () => {
+    if (bgm.paused) {
+      bgm.play();
+      toggleBtn.textContent = "🔊";
+    } else {
+      bgm.pause();
+      toggleBtn.textContent = "🔇";
+    }
+  };
+</script>
+
+<style>
+  #toggle-music {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    z-index: 9999;
+  }
+</style>
+</body>
+</html>
