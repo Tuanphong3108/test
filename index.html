@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Workspace Launcher</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
@@ -33,10 +34,10 @@
       font-size: 24px;
     }
 
-    #lock-screen input {
+    #lock-screen input, #lock-screen button {
       font-family: 'VT323', monospace;
       font-size: 20px;
-      padding: 8px;
+      padding: 8px 12px;
       background: #111;
       border: 1px solid #444;
       color: white;
@@ -45,39 +46,30 @@
       text-align: center;
     }
 
-    #lock-screen button {
-      font-family: 'VT323', monospace;
-      font-size: 20px;
-      margin-top: 10px;
-      padding: 5px 10px;
-      cursor: pointer;
-      background: #444;
-      border: none;
-      color: white;
-    }
-
     #toggle-music {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      font-size: 20px;
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      z-index: 9999;
-    }
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 9999;
+}
 
-    #logout-button {
-      margin: 1rem;
-      font-family: 'VT323', monospace;
-      font-size: 18px;
-      padding: 6px 12px;
-      cursor: pointer;
-      background: #555;
-      border: none;
-      color: white;
-    }
+#logout-button {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  font-size: 18px;
+  background: #555;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 9999;
+}
 
     #loading-screen {
       position: fixed;
@@ -151,7 +143,7 @@
 </head>
 <body>
   <div id="lock-screen">
-    <div>Enter password:</div>
+    <div>🔒 Enter password to access:</div>
     <input type="password" id="password">
     <button onclick="checkPassword()">Unlock</button>
     <div id="error-msg" style="color: red; margin-top: 10px;"></div>
@@ -205,16 +197,13 @@
   </div>
 
   <button id="logout-button">🔒 Đăng xuất</button>
-
-  <audio id="bgm" autoplay loop>
-    <source src="music1.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="bgm" autoplay loop><source src="music1.mp3" type="audio/mpeg"></audio>
   <button id="toggle-music">🔊</button>
 
   <script>
+    console.log("Launcher script loaded");
     const PASS = "phongvip";
     const lockScreen = document.getElementById("lock-screen");
-
     if (localStorage.getItem("unlocked") === "true") {
       lockScreen.style.display = "none";
     } else {
@@ -231,17 +220,13 @@
       }
     }
 
-    const logoutBtn = document.getElementById("logout-button");
-    logoutBtn.onclick = () => {
+    document.getElementById("logout-button").onclick = () => {
       localStorage.removeItem("unlocked");
       location.reload();
     };
 
     document.addEventListener("keydown", e => {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C"))
-      ) {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key))) {
         e.preventDefault();
         alert("🚫 DevTools is disabled!");
       }
@@ -249,14 +234,11 @@
 
     const tips = [
       "Don’t dig straight down!", "The creeper is always watching...", "Punching trees gives wood.",
-      "Diamonds are a miner’s best friend.", "There is no escape from the void.", "Keep your inventory tidy!",
-      "Monsters spawn in darkness…", "Sleep to skip the night.", "Watch your step in the Nether.",
-      "Villagers gossip when you're not looking.", "Sometimes iron golems give flowers to the villager children!",
-      "Endermen hate bath time!", "Tếu Tếu too bel... Minecraft's gone",
-      "You can milk a cow", "There's a chance a creeper is behind you... RIGHT NOW"
+      "Diamonds are a miner’s best friend.", "There is no escape from the void.",
+      "Tếu Tếu too bel... Minecraft's gone", "You can milk a cow",
+      "There's a chance a creeper is behind you... RIGHT NOW"
     ];
-    document.getElementById("loading-text").textContent =
-      tips[Math.floor(Math.random() * tips.length)];
+    document.getElementById("loading-text").textContent = tips[Math.floor(Math.random() * tips.length)];
 
     let progress = 0;
     const bar = document.getElementById("progress-bar");
@@ -283,21 +265,6 @@
         toggleBtn.textContent = "🔇";
       }
     };
-
-    if ('serviceWorker' in navigator) {
-      fetch('sw.js', { method: 'HEAD' })
-        .then(response => {
-          if (response.ok) {
-            navigator.serviceWorker.register('sw.js')
-              .then(() => console.log('✅ Service Worker registered'))
-              .catch(err => console.error('❌ Service Worker registration failed:', err));
-          } else {
-            console.warn('⚠️ sw.js not found, skipping Service Worker registration.');
-          }
-        })
-        .catch(() => console.warn('⚠️ Unable to fetch sw.js, skipping Service Worker registration.'));
-    }
   </script>
 </body>
 </html>
-
