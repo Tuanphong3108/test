@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Page - M3 Expressive</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import 'https://esm.run/@material/web/all.js';
+  </script>
+  <style>
+    :root {
+      --md-sys-color-primary: #0061a4;
+      --md-sys-color-on-primary: #ffffff;
+      --md-sys-color-primary-container: #d1e4ff;
+      --md-sys-color-on-primary-container: #001d36;
+      --md-sys-color-surface: #f8f9ff;
+      --md-sys-color-surface-container: #eceef4;
+      --md-sys-color-on-surface: #191c20;
+      --md-ref-typeface-brand: 'Google Sans Flex', sans-serif;
+      --md-ref-typeface-plain: 'Google Sans Flex', sans-serif;
+    }
+
+    body {
+      font-family: 'Google Sans Flex', system-ui, sans-serif;
+      background-color: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      transition: font-variation-settings 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .icon-hover-fill:hover .material-symbols-outlined,
+    .material-symbols-outlined:hover {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .m3-spring-btn {
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .m3-spring-btn:active {
+      transform: scale(0.94);
+    }
+
+    md-switch {
+      --md-switch-track-width: 52px;
+      --md-switch-track-height: 32px;
+      --md-switch-selected-handle-width: 24px;
+      --md-switch-selected-handle-height: 24px;
+      --md-switch-unselected-handle-width: 16px;
+      --md-switch-unselected-handle-height: 16px;
+      --md-switch-icon-size: 14px;
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    md-switch:active {
+      transform: scale(1.06);
+    }
+  </style>
+</head>
+<body class="min-h-screen w-full flex flex-col justify-between p-6 md:p-12">
+  <header class="w-full max-w-4xl mx-auto flex items-center justify-between py-4">
+    <div class="flex items-center gap-3 icon-hover-fill cursor-pointer">
+      <div class="w-12 h-12 rounded-2xl bg-[#d1e4ff] text-[#001d36] flex items-center justify-center shadow-sm">
+        <span class="material-symbols-outlined text-2xl">rocket_launch</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight">MCP Remote Test</h1>
+        <p class="text-sm text-slate-500">Material Design 3 Expressive</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 bg-[#eceef4] px-4 py-2 rounded-full">
+      <span class="text-sm font-medium">Chế độ thử nghiệm</span>
+      <md-switch icons selected id="modeSwitch"></md-switch>
+    </div>
+  </header>
+
+  <main class="w-full max-w-4xl mx-auto my-auto py-8">
+    <div class="bg-[#eceef4] rounded-[32px] p-8 md:p-10 shadow-sm border border-slate-200/60">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d1e4ff] text-[#001d36] text-xs font-semibold mb-4">
+        <span class="material-symbols-outlined text-sm">check_circle</span>
+        <span>DEPLOYED VIA GITHUB MCP</span>
+      </div>
+      
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        Kết nối thẳng tới GitHub thành công! 🚀
+      </h2>
+      <p class="text-slate-600 text-base md:text-lg leading-relaxed mb-8 max-w-2xl">
+        File <code class="px-2 py-0.5 rounded-lg bg-white/80 text-[#0061a4] font-medium">test.html</code> này được khởi tạo trực tiếp qua GitHub Remote Repository MCP với giao diện M3 Expressive và hiệu ứng vật lý lò xo.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <md-filled-button class="m3-spring-btn icon-hover-fill" id="pingBtn">
+          <span class="material-symbols-outlined" slot="icon">bolt</span>
+          Test Tương Tác
+        </md-filled-button>
+
+        <md-filled-tonal-button class="m3-spring-btn icon-hover-fill" onclick="location.reload()">
+          <span class="material-symbols-outlined" slot="icon">refresh</span>
+          Làm mới trang
+        </md-filled-tonal-button>
+      </div>
+
+      <div id="statusBox" class="hidden mt-6 p-4 rounded-2xl bg-white/80 text-sm font-medium text-[#001d36] flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#0061a4]">celebration</span>
+        <span id="statusText"></span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="w-full max-w-4xl mx-auto text-center text-sm text-slate-400 py-4">
+    Tạo tự động lúc 06:28 • 20/11/2026
+  </footer>
+
+  <script>
+    const l1 = document.createElement('link');
+    l1.rel = 'stylesheet';
+    l1.href = ['https://fonts.googleapis.com', '/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap'].join('');
+    document.head.appendChild(l1);
+
+    const l2 = document.createElement('link');
+    l2.rel = 'stylesheet';
+    l2.href = ['https://fonts.googleapis.com', '/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'].join('');
+    document.head.appendChild(l2);
+
+    const pingBtn = document.getElementById('pingBtn');
+    const statusBox = document.getElementById('statusBox');
+    const statusText = document.getElementById('statusText');
+    const modeSwitch = document.getElementById('modeSwitch');
+    let count = 0;
+
+    pingBtn.addEventListener('click', () => {
+      count++;
+      statusBox.classList.remove('hidden');
+      statusText.textContent = `Đã bấm nút thành công ${count} lần! Hiệu ứng ripple và spring physics hoạt động mượt mà.`;
+    });
+
+    modeSwitch.addEventListener('change', () => {
+      document.body.style.opacity = modeSwitch.selected ? '1' : '0.85';
+    });
+  </script>
+</body>
+</html>
